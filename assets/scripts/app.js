@@ -65,9 +65,10 @@ function endRound () {
 }
 
 function attackMonster(mode) {
-   let maxDamage;
-   let logEvent;
-   if (mode === MODE_ATTACK) {
+   const maxDamage = mode === MODE_ATTACK ? ATTACK_VALUE : STRONG_ATTACK_VALUE;
+   const logEvent = mode === MODE_ATTACK ? LOG_EVENT_PLAYER_ATTACK : LOG_EVENT_PLAYER_STRONG_ATTACK;
+   
+   /*if (mode === MODE_ATTACK) {
       maxDamage = ATTACK_VALUE;
       logEvent = LOG_EVENT_PLAYER_ATTACK;
    }
@@ -75,9 +76,10 @@ function attackMonster(mode) {
       maxDamage = STRONG_ATTACK_VALUE;
       logEvent = LOG_EVENT_PLAYER_STRONG_ATTACK;
    }
+   */
    const monsterDamage = dealMonsterDamage(maxDamage);
    currentMonsterHealth -= monsterDamage;
-   writeToLog(LlogEvent, damage, currentMonsterHealth, currentPlayerHealth);
+   writeToLog(logEvent, maxDamage, currentMonsterHealth, currentPlayerHealth);
    endRound();
 
 }
@@ -106,6 +108,7 @@ function healPlayerHandler() {
 }
 
 function writeToLog(ev, val, monsterHealth, playerHealth) {
+   let logEntry = {};
    if (event === LOG_EVENT_PLAYER_ATTACK) {
       logEntry = {
          event: ev,
@@ -154,7 +157,8 @@ function writeToLog(ev, val, monsterHealth, playerHealth) {
    battleLog.push(logEntry);
 }
 
-function printLogHandler () {
+function printLogHandler() {
+   for (let i = 0; i < 3 ; i++)
    console.log(battleLog);
 }
 
@@ -162,4 +166,4 @@ function printLogHandler () {
 attackBtn.addEventListener('click', attackHandler);
 strongAttackBtn.addEventListener('click', strongAttackHandler);
 healBtn.addEventListener('click', healPlayerHandler);
-logBtn.addEventListener('click', ) printLogHandler);
+logBtn.addEventListener('click', printLogHandler);
