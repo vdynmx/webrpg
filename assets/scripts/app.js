@@ -157,10 +157,21 @@ function writeToLog(ev, val, monsterHealth, playerHealth) {
    battleLog.push(logEntry);
 }
 
-function printLogHandler() {
-   for (let i = 0; i < 3 ; i++)
-   console.log(battleLog);
-}
+function printLogHandler (){
+   for (let i = 0; i < 3; i++) {
+      console.log('---------------');
+      }  
+
+   let i = 0;
+   for (const logEntry of battleLog) {
+      console.log(`#${i}`);
+      for (const key in logEntry) {
+         console.log(key);
+         console.log(logEntry[key]);
+      }
+   }   
+   }
+    
 
 
 attackBtn.addEventListener('click', attackHandler);
